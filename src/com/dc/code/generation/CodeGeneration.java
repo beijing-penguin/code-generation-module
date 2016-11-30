@@ -109,17 +109,17 @@ public class CodeGeneration {
 			serviceFileStr += "\t@Resource\r\n\tprivate "+className+"Dao "+JDBCUtils.getBeanName(className)+"Dao;\r\n\r\n";
 			
 			String methodParamStr = JDBCUtils.getBeanName(className);
-			daoFileStrMothed += "\tpublic Pagination<"+className+"> queryList"+className+"ByPage(Pagination<"+className+"> page) throws Exception{\r\n";
+			daoFileStrMothed += "\tpublic Page queryList"+className+"ByPage(Page page) throws Exception{\r\n";
 			daoFileStrMothed += "\t\tif(page == null) {\r\n";
-			daoFileStrMothed += "\t\t\tpage = new Pagination<"+className+"> ();\r\n";
+			daoFileStrMothed += "\t\t\tpage = new Page();\r\n";
 			daoFileStrMothed += "\t\t}\r\n";
 			daoFileStrMothed += "\t\tString sql = \"select * from \" +"+className+".TABLE_NAME;\r\n";
-			daoFileStrMothed += "\t\tpage.setTotalElements("+dbhelperStr+".selectCount(sql));\r\n";
+			daoFileStrMothed += "\t\tpage.setPageCount("+dbhelperStr+".selectCount(sql));\r\n";
 			daoFileStrMothed += "\t\tsql = sql + \"limit ?,?\";\r\n";
 			daoFileStrMothed += "\t\tList<Object> paramsList = new ArrayList<Object>();\r\n";
-			daoFileStrMothed += "\t\tparamsList.add(page.getOffset());\r\n";
+			daoFileStrMothed += "\t\tparamsList.add(page.getFirstIndex());\r\n";
 			daoFileStrMothed += "\t\tparamsList.add(page.getPageSize());\r\n";
-			daoFileStrMothed += "\t\tpage.setElements("+dbhelperStr+".selectList(sql,"+className+".class,paramsList));\r\n";
+			daoFileStrMothed += "\t\tpage.setDataList("+dbhelperStr+".selectList(sql,"+className+".class,paramsList));\r\n";
 			daoFileStrMothed += "\t\treturn page;\r\n";
 			daoFileStrMothed += "\t}\r\n";
 			
