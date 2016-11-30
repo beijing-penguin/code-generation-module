@@ -17,8 +17,8 @@ import com.zaxxer.hikari.HikariDataSource;
  * @time 2016-11-29
  */
 public class CodeGeneration {
-	private static String jdbc_url = "jdbc:mysql://localhost:3306/ucenterlog_0?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false";
-	private static String username = "root";
+	private static String jdbc_url = "jdbc:mysql://192.168.12.204:3306/framework?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false";
+	private static String username = "yanxiu";
 	private static String pwd = "123456";
 	public static void main( String[] args ) throws Exception{
 		HikariDataSource dataSource = new HikariDataSource();
@@ -96,6 +96,7 @@ public class CodeGeneration {
 			String serviceFileStrMothed = "";
 			daoFileStr += "import com.yanxiu.jdbc.core.DBHelper;\r\n";
 			daoFileStr += "import javax.annotation.Resource;\r\n";
+			serviceFileStr += "import org.springframework.stereotype.Service;\r\n";
 			serviceFileStr += "import javax.annotation.Resource;\r\n";
 			daoFileStr += "import org.springframework.stereotype.Component;\r\n";
 			daoFileStr += "import java.util.List;\r\n\r\n";
@@ -147,10 +148,10 @@ public class CodeGeneration {
 			serviceFileStrMothed += "\t@Override\r\n\tpublic Page selectList"+className+"ByPage(Page page) throws Exception{\r\n";
 			serviceFileStrMothed += "\t\treturn "+methodParamStr+"Dao.selectList"+className+"ByPage(page);\r\n\t}\r\n";
 			
-			serviceFileStrMothed += "\t@Override\r\n\tpublic int selectList"+className+"("+className+" "+methodParamStr+") throws Exception{\r\n";
+			serviceFileStrMothed += "\t@Override\r\n\tpublic List<"+className+"> selectList"+className+"("+className+" "+methodParamStr+") throws Exception{\r\n";
 			serviceFileStrMothed += "\t\treturn "+methodParamStr+"Dao.selectList"+className+"("+methodParamStr+");\r\n\t}\r\n";
 			
-			serviceFileStrMothed += "\t@Override\r\n\tpublic int selectOne"+className+"("+className+" "+methodParamStr+") throws Exception{\r\n";
+			serviceFileStrMothed += "\t@Override\r\n\tpublic "+className+" selectOne"+className+"("+className+" "+methodParamStr+") throws Exception{\r\n";
 			serviceFileStrMothed += "\t\treturn "+methodParamStr+"Dao.selectOne"+className+"("+methodParamStr+");\r\n\t}\r\n";
 			
 			serviceFileStrMothed += "\t@Override\r\n\tpublic int delete"+className+"("+className+" "+methodParamStr+") throws Exception{\r\n";
@@ -169,12 +170,13 @@ public class CodeGeneration {
 			
 			//生成服务层接口
 			String interFileStr = "";
+			interFileStr += "import java.util.List;";
 			interFileStr += "\r\npublic interface "+className+"Service {\r\n";
 			interFileStr += "\tpublic Page selectList"+className+"ByPage(Page page) throws Exception;\r\n";
 			
-			interFileStr += "\tpublic int selectList"+className+"("+className+" "+methodParamStr+") throws Exception;\r\n";
+			interFileStr += "\tpublic List<"+className+"> selectList"+className+"("+className+" "+methodParamStr+") throws Exception;\r\n";
 			
-			interFileStr += "\tpublic int selectOne"+className+"("+className+" "+methodParamStr+") throws Exception;\r\n";
+			interFileStr += "\tpublic "+className+" selectOne"+className+"("+className+" "+methodParamStr+") throws Exception;\r\n";
 			
 			interFileStr += "\tpublic int delete"+className+"("+className+" "+methodParamStr+") throws Exception;\r\n";
 			
