@@ -109,7 +109,7 @@ public class CodeGeneration {
 			serviceFileStr += "\t@Resource\r\n\tprivate "+className+"Dao "+JDBCUtils.getBeanName(className)+"Dao;\r\n\r\n";
 			
 			String methodParamStr = JDBCUtils.getBeanName(className);
-			daoFileStrMothed += "\tpublic Page queryList"+className+"ByPage(Page page) throws Exception{\r\n";
+			daoFileStrMothed += "\tpublic Page selectList"+className+"ByPage(Page page) throws Exception{\r\n";
 			daoFileStrMothed += "\t\tif(page == null) {\r\n";
 			daoFileStrMothed += "\t\t\tpage = new Page();\r\n";
 			daoFileStrMothed += "\t\t}\r\n";
@@ -123,10 +123,10 @@ public class CodeGeneration {
 			daoFileStrMothed += "\t\treturn page;\r\n";
 			daoFileStrMothed += "\t}\r\n";
 			
-			daoFileStrMothed += "\tpublic List<"+className+"> queryList"+className+"("+className+" "+methodParamStr+") throws Exception{\r\n";
+			daoFileStrMothed += "\tpublic List<"+className+"> selectList"+className+"("+className+" "+methodParamStr+") throws Exception{\r\n";
 			daoFileStrMothed += "\t\treturn "+dbhelperStr+".selectEntity("+methodParamStr+");\r\n\t}\r\n";
 			
-			daoFileStrMothed += "\tpublic "+className+" queryOne"+className+"("+className+" "+methodParamStr+") throws Exception{\r\n";
+			daoFileStrMothed += "\tpublic "+className+" selectOne"+className+"("+className+" "+methodParamStr+") throws Exception{\r\n";
 			daoFileStrMothed += "\t\treturn "+dbhelperStr+".selectOneEntity("+methodParamStr+");\r\n\t}\r\n";
 			
 			daoFileStrMothed += "\tpublic int delete"+className+"("+className+" "+methodParamStr+") throws Exception{\r\n";
@@ -144,14 +144,14 @@ public class CodeGeneration {
 			System.out.println(fileDao.getAbsolutePath()+"生成成功");
 			
 			//生成service
-			serviceFileStrMothed += "\t@Override\r\n\tpublic Pagination<"+className+"> queryList"+className+"ByPage(Pagination<"+className+"> page) throws Exception{\r\n";
-			serviceFileStrMothed += "\t\treturn "+methodParamStr+"Dao.queryList"+className+"ByPage(page);\r\n\t}\r\n";
+			serviceFileStrMothed += "\t@Override\r\n\tpublic Page selectList"+className+"ByPage(Page page) throws Exception{\r\n";
+			serviceFileStrMothed += "\t\treturn "+methodParamStr+"Dao.selectList"+className+"ByPage(page);\r\n\t}\r\n";
 			
-			serviceFileStrMothed += "\t@Override\r\n\tpublic int queryList"+className+"("+className+" "+methodParamStr+") throws Exception{\r\n";
-			serviceFileStrMothed += "\t\treturn "+methodParamStr+"Dao.queryList"+className+"("+methodParamStr+");\r\n\t}\r\n";
+			serviceFileStrMothed += "\t@Override\r\n\tpublic int selectList"+className+"("+className+" "+methodParamStr+") throws Exception{\r\n";
+			serviceFileStrMothed += "\t\treturn "+methodParamStr+"Dao.selectList"+className+"("+methodParamStr+");\r\n\t}\r\n";
 			
-			serviceFileStrMothed += "\t@Override\r\n\tpublic int queryOne"+className+"("+className+" "+methodParamStr+") throws Exception{\r\n";
-			serviceFileStrMothed += "\t\treturn "+methodParamStr+"Dao.queryOne"+className+"("+methodParamStr+");\r\n\t}\r\n";
+			serviceFileStrMothed += "\t@Override\r\n\tpublic int selectOne"+className+"("+className+" "+methodParamStr+") throws Exception{\r\n";
+			serviceFileStrMothed += "\t\treturn "+methodParamStr+"Dao.selectOne"+className+"("+methodParamStr+");\r\n\t}\r\n";
 			
 			serviceFileStrMothed += "\t@Override\r\n\tpublic int delete"+className+"("+className+" "+methodParamStr+") throws Exception{\r\n";
 			serviceFileStrMothed += "\t\treturn "+methodParamStr+"Dao.delete"+className+"("+methodParamStr+");\r\n\t}\r\n";
@@ -170,11 +170,11 @@ public class CodeGeneration {
 			//生成服务层接口
 			String interFileStr = "";
 			interFileStr += "\r\npublic interface "+className+"Service {\r\n";
-			interFileStr += "\tpublic Pagination<"+className+"> queryList"+className+"ByPage(Pagination<"+className+"> page) throws Exception;\r\n";
+			interFileStr += "\tpublic Page selectList"+className+"ByPage(Page page) throws Exception;\r\n";
 			
-			interFileStr += "\tpublic int queryList"+className+"("+className+" "+methodParamStr+") throws Exception;\r\n";
+			interFileStr += "\tpublic int selectList"+className+"("+className+" "+methodParamStr+") throws Exception;\r\n";
 			
-			interFileStr += "\tpublic int queryOne"+className+"("+className+" "+methodParamStr+") throws Exception;\r\n";
+			interFileStr += "\tpublic int selectOne"+className+"("+className+" "+methodParamStr+") throws Exception;\r\n";
 			
 			interFileStr += "\tpublic int delete"+className+"("+className+" "+methodParamStr+") throws Exception;\r\n";
 			
