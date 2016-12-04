@@ -7,9 +7,9 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
-import com.yanxiu.jdbc.core.entity.ColumnBean;
-import com.yanxiu.jdbc.core.entity.TableInfoBean;
-import com.yanxiu.jdbc.core.utils.JDBCUtils;
+import org.dc.jdbc.core.entity.ColumnBean;
+import org.dc.jdbc.core.entity.TableInfoBean;
+import org.dc.jdbc.core.utils.JDBCUtils;
 import com.zaxxer.hikari.HikariDataSource;
 
 /**
